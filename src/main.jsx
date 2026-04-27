@@ -7,10 +7,16 @@ import Root from './Layout/Root';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import AuthProvider from './Context/AuthContext/AuthProvider';
+
+// const AuthContext = createContext(null)
+// const userInfo = {
+//   email: 'shams@gmail.com'
+// }
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     Component: Root,
     children: [
 
@@ -33,6 +39,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
+
   </StrictMode>,
 )
