@@ -4,12 +4,29 @@ import './NavBar.css'
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
 
 const NavBar = () => {
-	const { user } = use(AuthContext);
+	const { user, crestrSignOut } = use(AuthContext);
+
+	const handleSignOut = () => {
+		crestrSignOut()
+			.then(() => {
+
+			})
+			.catch(error => {
+				console.log(error);
+
+			})
+	}
 
 	const links = <>
 		<li><NavLink to={"/"}>Home</NavLink></li>
 		<li><NavLink to={"/register"}>Register</NavLink></li>
 		<li><NavLink to={"/login"}>LogIn</NavLink></li>
+		{
+			user && <>
+				<li><NavLink to={"/orders"}>Orders</NavLink></li>
+				<li><NavLink to={"/profile"}>Profile</NavLink></li>
+			</>
+		}
 
 	</>
 	return (
@@ -33,7 +50,9 @@ const NavBar = () => {
 				</ul>
 			</div>
 			<div className="navbar-end">
-				{user ? <a className="btn">Sign Out</a> : <Link to='/login'>LogIn</Link>}
+				{user ?
+					<a onClick={handleSignOut} className="btn">Sign Out</a>
+					: <Link to='/login'>LogIn</Link>}
 			</div>
 		</div>
 	);
